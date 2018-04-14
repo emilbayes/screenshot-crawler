@@ -1,0 +1,26 @@
+{
+  "name": "screenshot-crawler",
+  "version": "0.0.0",
+  "description": "Screenshot crawler, taking instructions from YAML file and outputting TAP",
+  "main": "index.js",
+  "bin": "index.js",
+  "dependencies": {
+    "js-yaml": "^3.11.0",
+    "puppeteer": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilbayes/screenshot-crawler.git"
+  },
+  "keywords": [
+
+  ],
+  "author": "Emil Bay <github@tixz.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilbayes/screenshot-crawler/issues"
+  },
+  "homepage": "https://github.com/emilbayes/screenshot-crawler#readme"
+}
