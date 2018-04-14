@@ -5,7 +5,10 @@ var yaml = require('js-yaml')
 var headless = require('puppeteer')
 var devices = require('puppeteer/DeviceDescriptors')
 
-var instructions = yaml.safeLoad(fs.readFileSync(path.join(process.cwd(), process.argv[2]), 'utf8'));
+var instructionsPath = path.join(process.cwd(), process.argv[2])
+var outputDir = process.cwd()
+
+var instructions = yaml.safeLoad(fs.readFileSync(instructionsPath, 'utf8'));
 
 async function main () {
   console.log('TAP version 13')
@@ -43,7 +46,7 @@ async function main () {
     }
     if (!page.instructions) {
       try {
-        await tab.screenshot({path: path.join('screenshots', `${page.title}.png`), fullPage: true})
+        await tab.screenshot({path: path.join(outputDir, `${page.title}.png`), fullPage: true})
         console.log(`ok ${t++} screenshot (${page.title}.png)`)
       } catch (ex) {
         console.log(`not ok ${t++} screenshot (${page.title}.png)`)
@@ -59,7 +62,7 @@ async function main () {
             var name = args && args[0]
             var filename = `${page.title}-${name || np++}.png`
             try {
-              await tab.screenshot({path: path.join('screenshots', filename), fullPage: true})
+              await tab.screenshot({path: path.join(outputDir, filename), fullPage: true})
               console.log(`ok ${t++} screenshot (${filename})`)
             } catch (ex) {
               console.log(`not ok ${t++} screenshot (${filename})`)
@@ -80,7 +83,7 @@ async function main () {
               }, ...args.slice(1))
               var name = args && args[0]
               var filename = `${page.title}-element-${name || ne++}.png`
-              await tab.screenshot({path: path.join('screenshots', filename), clip})
+              await tab.screenshot({path: path.join(outputDir, filename), clip})
               console.log(`ok ${t++} screenshotElement '${args[1]}' (${filename})`)
             } catch (ex) {
               console.log(`not ok ${t++} screenshotElement '${args[1]}' (${filename})`)
