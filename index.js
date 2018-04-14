@@ -43,6 +43,7 @@ async function main () {
       console.log(`ok ${t++} goto (${page.url})`)
     } catch (ex) {
       console.log(`not ok ${t++} goto (${page.url})`)
+      reportError(ex)
     }
     if (!page.instructions) {
       try {
@@ -50,6 +51,7 @@ async function main () {
         console.log(`ok ${t++} screenshot (${page.title}.png)`)
       } catch (ex) {
         console.log(`not ok ${t++} screenshot (${page.title}.png)`)
+        reportError(ex)
       }
     }
     else {
@@ -66,6 +68,7 @@ async function main () {
               console.log(`ok ${t++} screenshot (${filename})`)
             } catch (ex) {
               console.log(`not ok ${t++} screenshot (${filename})`)
+              reportError(ex)
             }
 
             break
@@ -87,6 +90,7 @@ async function main () {
               console.log(`ok ${t++} screenshotElement '${args[1]}' (${filename})`)
             } catch (ex) {
               console.log(`not ok ${t++} screenshotElement '${args[1]}' (${filename})`)
+              reportError(ex)
             }
             break
           case 'clearCookies':
@@ -97,7 +101,7 @@ async function main () {
             }
             catch (ex) {
               console.log(`not ok ${t++} clearCookies (0)`)
-              console.error(ex)
+              reportError(ex)
             }
             break
           default:
@@ -106,6 +110,7 @@ async function main () {
               console.log(`ok ${t++} ${method} (args = ${JSON.stringify(args)})`)
             } catch (ex) {
               console.log(`not ok ${t++} ${method} (args = ${JSON.stringify(args)})`)
+              reportError(ex)
             }
             break
         }
@@ -117,3 +122,20 @@ async function main () {
 }
 
 (async _ => main())()
+
+
+function reportError(ex) {
+  var output = ''
+  var outer = '  '
+  var inner = outer + '  '
+  output += outer + '---\n'
+  output += inner + 'stack: |-\n'
+
+  var lines = String(ex.stack).split('\n')
+  for (var i = 0; i < lines.length; i++) {
+    output += inner + '  ' + lines[i] + '\n'
+  }
+  output += outer + '...\n';
+
+  console.log(output)
+}
