@@ -1,6 +1,6 @@
 {
   "name": "screenshot-crawler",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Screenshot crawler, taking instructions from YAML file and outputting TAP",
   "main": "index.js",
   "bin": "index.js",
